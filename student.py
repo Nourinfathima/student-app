@@ -1,3 +1,7 @@
+from unicodedata import name
+import mysql.connector
+mydb= mysql.connector.connect(host = 'localhost' , user = 'root' , password = '' , database = 'studentdb')
+mycursor = mydb.cursor()
 while True:
 
     print("select an option from menu")
@@ -13,14 +17,18 @@ while True:
     print("5 delete a student")
 
     print("6 exit")
-
-
-
     choice = int(input("Enter an option: "))
-
     if(choice==1):
 
         print("student enter selected")
+        name=input("enter the name")
+        rollnumber=input("enter the rollno")
+        admno = input("enter the adminno")
+        college = input("enter the college name")
+        sql ='INSERT INTO `studentS`(`name`, `rollnumber`, `admno`, `college`)VALUES(%s,%s,%s,%s)'
+        data = (name,rollnumber,admno,college)
+        mycursor.execute(sql , data)
+        mydb.commit()
 
     elif(choice==2):
 
